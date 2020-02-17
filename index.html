@@ -293,7 +293,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/29/Kakfa实践：二、生产者/">
+    <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/29/Kakfa实践：三、基本命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="姜文杰">
@@ -312,7 +312,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/01/29/Kakfa实践：二、生产者/" itemprop="url">Kakfa实践：二、生产者</a></h1>
+                <a class="post-title-link" href="/2020/01/29/Kakfa实践：三、基本命令/" itemprop="url">Kakfa实践：三、基本命令</a></h1>
         
 
         <div class="post-meta">
@@ -324,8 +324,200 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-29T15:44:45+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-29T19:03:35+08:00">
                 2020-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kafka/" itemprop="url" rel="index">
+                    <span itemprop="name">Kafka</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="三、基本命令"><a href="#三、基本命令" class="headerlink" title="三、基本命令"></a>三、基本命令</h1><p>搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。</p>
+<hr>
+<h1 id="1-建立zookeeper节点"><a href="#1-建立zookeeper节点" class="headerlink" title="1. 建立zookeeper节点"></a>1. 建立zookeeper节点</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\zookeeper-<span class="number">3.4</span>.<span class="number">13</span>\bin\zkServer.bat</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-启动kafka节点"><a href="#2-启动kafka节点" class="headerlink" title="2. 启动kafka节点"></a>2. 启动kafka节点</h1><p>我这里启动了3个节点，配置文件为<code>server.properties</code>，<code>server1.properties``server2.properties</code>，对应的brokerId分别为0，1，2。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-server-start.bat D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\config\server.properties</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-创建主题"><a href="#3-创建主题" class="headerlink" title="3. 创建主题"></a>3. 创建主题</h1><p>此操作会在zookeeper的<code>/brokers/topics/</code>目录下创建一个<topic-name>文件夹存放topic的分区信息。<br>此操作会在zookeeper的<code>/config/topics/</code>目录下创建<topic-name>文件夹存放该topic的配置信息。</topic-name></topic-name></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --create --topic create-topics --partitions <span class="number">3</span> --replication-factor <span class="number">2</span></span><br><span class="line">Created topic create-topics.</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-查看主题"><a href="#4-查看主题" class="headerlink" title="4. 查看主题"></a>4. 查看主题</h1><h2 id="4-1-查看所有主题"><a href="#4-1-查看所有主题" class="headerlink" title="4.1 查看所有主题"></a>4.1 查看所有主题</h2><h3 id="4-1-1-通过zooKeeper查看"><a href="#4-1-1-通过zooKeeper查看" class="headerlink" title="4.1.1 通过zooKeeper查看"></a>4.1.1 通过zooKeeper查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">15</span>] ls /brokers/topics</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-2-通过kafka-topics查看"><a href="#4-1-2-通过kafka-topics查看" class="headerlink" title="4.1.2 通过kafka-topics查看"></a>4.1.2 通过kafka-topics查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --list</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-查看指定主题"><a href="#4-2-查看指定主题" class="headerlink" title="4.2 查看指定主题"></a>4.2 查看指定主题</h2><h3 id="4-2-1-通过zooKeeper查看"><a href="#4-2-1-通过zooKeeper查看" class="headerlink" title="4.2.1 通过zooKeeper查看"></a>4.2.1 通过zooKeeper查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">15</span>] get /brokers/topics/create-topics</span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:&#123;<span class="string">"2"</span>:[<span class="number">0</span>,<span class="number">2</span>],<span class="string">"1"</span>:[<span class="number">2</span>,<span class="number">1</span>],<span class="string">"0"</span>:[<span class="number">1</span>,<span class="number">0</span>]&#125;&#125;</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">19</span>] get /config/topics/create-topics</span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"config"</span>:&#123;<span class="string">"max.message.bytes"</span>:<span class="string">"30000"</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-2-通过kafka-topics查看"><a href="#4-2-2-通过kafka-topics查看" class="headerlink" title="4.2.2 通过kafka-topics查看"></a>4.2.2 通过kafka-topics查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --describe --topic create-topics</span><br><span class="line">Topic:create-topics     PartitionCount:<span class="number">3</span>        ReplicationFactor:<span class="number">2</span>     Configs:max.message.bytes=<span class="number">30000</span></span><br><span class="line">        Topic: create-topics    Partition: <span class="number">0</span>    Leader: <span class="number">1</span>       Replicas: <span class="number">1</span>,<span class="number">0</span>   Isr: <span class="number">1</span>,<span class="number">0</span></span><br><span class="line">        Topic: create-topics    Partition: <span class="number">1</span>    Leader: <span class="number">2</span>       Replicas: <span class="number">2</span>,<span class="number">1</span>   Isr: <span class="number">2</span>,<span class="number">1</span></span><br><span class="line">        Topic: create-topics    Partition: <span class="number">2</span>    Leader: <span class="number">0</span>       Replicas: <span class="number">0</span>,<span class="number">2</span>   Isr: <span class="number">0</span>,<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-3-通过kafka-configs查看"><a href="#4-2-3-通过kafka-configs查看" class="headerlink" title="4.2.3 通过kafka-configs查看"></a>4.2.3 通过kafka-configs查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt;  D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-configs.bat --zookeeper localhost:<span class="number">2181</span> --d D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-configs.bat --zookeeper localhost:<span class="number">2181</span> --describe --entity-type topics --entity-name create-topics</span><br><span class="line">Configs <span class="keyword">for</span> topic <span class="string">'create-topics'</span> are max.message.bytes=<span class="number">30000</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="5-修改主题"><a href="#5-修改主题" class="headerlink" title="5. 修改主题"></a>5. 修改主题</h1><h2 id="5-1-修改主题分区数"><a href="#5-1-修改主题分区数" class="headerlink" title="5.1 修改主题分区数"></a>5.1 修改主题分区数</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt;  D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --alter --topic alter-topics --partitions <span class="number">4</span></span><br><span class="line">WARNING: <span class="keyword">If</span> partitions are increased <span class="keyword">for</span> a topic that has a key, the partition logic or ordering of the messages will be affected</span><br><span class="line">Adding partitions succeeded!</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-2-修改主题的配置"><a href="#5-2-修改主题的配置" class="headerlink" title="5.2 修改主题的配置"></a>5.2 修改主题的配置</h2><h3 id="5-2-1-通过kafka-topcis修改"><a href="#5-2-1-通过kafka-topcis修改" class="headerlink" title="5.2.1 通过kafka-topcis修改"></a>5.2.1 通过kafka-topcis修改</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt;  D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --alter --topic alter-topics --config max.message.bytes=<span class="number">20000</span></span><br><span class="line">WARNING: Altering topic configuration from this script has been deprecated and may be removed <span class="keyword">in</span> future releases.</span><br><span class="line">         Going forward, please use kafka-configs.sh <span class="keyword">for</span> this functionality       Updated config <span class="keyword">for</span> topic alter-topics.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --alter --topic alter-topics --delete-config max.message.bytes</span><br><span class="line">WARNING: Altering topic configuration from this script has been deprecated and may be removed <span class="keyword">in</span> future releases.</span><br><span class="line">         Going forward, please use kafka-configs.sh <span class="keyword">for</span> this functionality       Updated config <span class="keyword">for</span> topic alter-topics.</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-2-通过kafka-configs修改"><a href="#5-2-2-通过kafka-configs修改" class="headerlink" title="5.2.2 通过kafka-configs修改"></a>5.2.2 通过kafka-configs修改</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-configs.bat -zookeeper localhost:<span class="number">2181</span> --alter --entity-type topics --entity-name create-topics --add-config max.message.bytes=<span class="number">30000</span></span><br><span class="line">Completed Updating config <span class="keyword">for</span> entity: topic <span class="string">'create-topics'</span>.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-configs.bat -zookeeper localhost:<span class="number">2181</span> --alter --entity-type topics --entity-name alter-topics --delete-config max.message.bytes</span><br><span class="line">Completed Updating config <span class="keyword">for</span> entity: topic <span class="string">'alter-topics'</span>.</span><br></pre></td></tr></table></figure>
+
+<h1 id="6-删除主题"><a href="#6-删除主题" class="headerlink" title="6. 删除主题"></a>6. 删除主题</h1><p>删除主题实际上是在zookeeper的<code>/admin/delete_topics</code>目录下创建<topic-name>文件夹。</topic-name></p>
+<h2 id="6-1-使用kafka-topics删除"><a href="#6-1-使用kafka-topics删除" class="headerlink" title="6.1 使用kafka-topics删除"></a>6.1 使用kafka-topics删除</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --delete --topic alter-topics</span><br><span class="line">Topic alter-topics is marked <span class="keyword">for</span> deletion.</span><br><span class="line">Note: This will have no impact <span class="keyword">if</span> delete.topic.enable is not set to true.</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-2-使用zookeeper删除"><a href="#6-2-使用zookeeper删除" class="headerlink" title="6.2 使用zookeeper删除"></a>6.2 使用zookeeper删除</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">26</span>] create /admin/delete_topics/alter-topics <span class="string">""</span></span><br><span class="line">Created /admin/delete_topics/alter-topics</span><br></pre></td></tr></table></figure>
+
+<h1 id="7-重新分配leader"><a href="#7-重新分配leader" class="headerlink" title="7. 重新分配leader"></a>7. 重新分配leader</h1><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"partitions"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"topic-partition"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"topic-partition"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">2</span>,</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"topic-partition"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-preferred-replica-election.bat --zookeeper localhost:<span class="number">2181</span> --path-to-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\election.json</span><br><span class="line">Warning: --zookeeper is deprecated and will be removed <span class="keyword">in</span> a future version of Kafka.</span><br><span class="line">Use --bootstrap-server instead to specify a broker to connect to.</span><br><span class="line">Created preferred replica election path with topic-partition-<span class="number">0</span>,topic-partition-<span class="number">1</span>,topic-partition-<span class="number">2</span></span><br><span class="line">Successfully started preferred replica election <span class="keyword">for</span> partitions Set(topic-partition-<span class="number">0</span>, topic-partition-<span class="number">1</span>, topic-partition-<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="8-分区重分配"><a href="#8-分区重分配" class="headerlink" title="8. 分区重分配"></a>8. 分区重分配</h1><h2 id="8-1-创建一个包含主题清单的JSON文件"><a href="#8-1-创建一个包含主题清单的JSON文件" class="headerlink" title="8.1 创建一个包含主题清单的JSON文件"></a>8.1 创建一个包含主题清单的JSON文件</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"topics"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"topic-zero"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">	<span class="attr">"version"</span>:<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-2-根据主题清单和broker节点清单生成重分配方案"><a href="#8-2-根据主题清单和broker节点清单生成重分配方案" class="headerlink" title="8.2 根据主题清单和broker节点清单生成重分配方案"></a>8.2 根据主题清单和broker节点清单生成重分配方案</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-reassign-partitions.bat --zookeeper localhost:<span class="number">2181</span> --generate --topics-to-move-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\json\reassign.json --broker-list <span class="number">0</span>,<span class="number">2</span></span><br><span class="line">Current partition replica assignment</span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">2</span>,<span class="string">"replicas"</span>:[<span class="number">1</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">1</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">3</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">0</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">1</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">Proposed partition reassignment configuration</span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">2</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">1</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">3</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">0</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;]&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-3-执行方案"><a href="#8-3-执行方案" class="headerlink" title="8.3 执行方案"></a>8.3 执行方案</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\<span class="number">11597</span>&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-reassign-partitions.bat --zookeeper localhost:<span class="number">2181</span> --execute --reassignment-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\json\project.json</span><br><span class="line">Current partition replica assignment</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">2</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">1</span>,<span class="string">"replicas"</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">0</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">Save this to use as the --reassignment-json-file option during rollback</span><br><span class="line">Successfully started reassignment of partitions.</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-4-验证结果"><a href="#8-4-验证结果" class="headerlink" title="8.4 验证结果"></a>8.4 验证结果</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\<span class="number">11597</span>&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-reassign-partitions.bat --zookeeper localhost:<span class="number">2181</span> --verify --reassignment-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\json\project.json</span><br><span class="line">Status of partition reassignment:</span><br><span class="line">Reassignment of partition topic-zero-<span class="number">2</span> completed successfully</span><br><span class="line">Reassignment of partition topic-zero-<span class="number">1</span> completed successfully</span><br><span class="line">Reassignment of partition topic-zero-<span class="number">0</span> completed successfully</span><br></pre></td></tr></table></figure>
+
+<h1 id="9-复制限流"><a href="#9-复制限流" class="headerlink" title="9. 复制限流"></a>9. 复制限流</h1><h2 id="9-1-主题级别"><a href="#9-1-主题级别" class="headerlink" title="9.1 主题级别"></a>9.1 主题级别</h2><p><code>follower.replication.throttled.replicas</code><br><code>leader.``replication.throttled.replicas</code></p>
+<h2 id="9-2-broker级别"><a href="#9-2-broker级别" class="headerlink" title="9.2 broker级别"></a>9.2 broker级别</h2><p><code>follower.replication.throttled.rate</code><br><code>leader.``replication.throttled.rate</code></p>
+<h2 id="9-3-使用–throttle"><a href="#9-3-使用–throttle" class="headerlink" title="9.3 使用–throttle"></a>9.3 使用–throttle</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\<span class="number">11597</span>&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-reassign-partitions.bat --zookeeper localhost:<span class="number">2181</span> --execute --reassignment-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\json\project.json --throttle <span class="number">1024</span></span><br><span class="line">Current partition replica assignment</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">2</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">1</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">0</span>,<span class="string">"replicas"</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">Save this to use as the --reassignment-json-file option during rollback</span><br><span class="line">Warning: You must run Verify periodically, <span class="keyword">until</span> the reassignment completes, to ensure the throttle is removed. You can also alter the throttle by rerunning the Execute command passing a new value.</span><br><span class="line">The inter-broker throttle limit was set to <span class="number">1024</span> B/s</span><br><span class="line">Successfully started reassignment of partitions.</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/25/Kakfa实践：二、生产者/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="姜文杰|个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/25/Kakfa实践：二、生产者/" itemprop="url">Kakfa实践：二、生产者</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-25T19:01:26+08:00">
+                2020-01-25
               </time>
             
 
@@ -487,198 +679,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/25/Kakfa实践：三、基本命令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="姜文杰">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/touxiang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="姜文杰|个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/01/25/Kakfa实践：三、基本命令/" itemprop="url">Kakfa实践：三、基本命令</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-25T15:45:14+08:00">
-                2020-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Kafka/" itemprop="url" rel="index">
-                    <span itemprop="name">Kafka</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="三、基本命令"><a href="#三、基本命令" class="headerlink" title="三、基本命令"></a>三、基本命令</h1><p>搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。</p>
-<hr>
-<h1 id="1-建立zookeeper节点"><a href="#1-建立zookeeper节点" class="headerlink" title="1. 建立zookeeper节点"></a>1. 建立zookeeper节点</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\zookeeper-<span class="number">3.4</span>.<span class="number">13</span>\bin\zkServer.bat</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-启动kafka节点"><a href="#2-启动kafka节点" class="headerlink" title="2. 启动kafka节点"></a>2. 启动kafka节点</h1><p>我这里启动了3个节点，配置文件为<code>server.properties</code>，<code>server1.properties``server2.properties</code>，对应的brokerId分别为0，1，2。</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-server-start.bat D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\config\server.properties</span><br></pre></td></tr></table></figure>
-
-<h1 id="3-创建主题"><a href="#3-创建主题" class="headerlink" title="3. 创建主题"></a>3. 创建主题</h1><p>此操作会在zookeeper的<code>/brokers/topics/</code>目录下创建一个<topic-name>文件夹存放topic的分区信息。<br>此操作会在zookeeper的<code>/config/topics/</code>目录下创建<topic-name>文件夹存放该topic的配置信息。</topic-name></topic-name></p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --create --topic create-topics --partitions <span class="number">3</span> --replication-factor <span class="number">2</span></span><br><span class="line">Created topic create-topics.</span><br></pre></td></tr></table></figure>
-
-<h1 id="4-查看主题"><a href="#4-查看主题" class="headerlink" title="4. 查看主题"></a>4. 查看主题</h1><h2 id="4-1-查看所有主题"><a href="#4-1-查看所有主题" class="headerlink" title="4.1 查看所有主题"></a>4.1 查看所有主题</h2><h3 id="4-1-1-通过zooKeeper查看"><a href="#4-1-1-通过zooKeeper查看" class="headerlink" title="4.1.1 通过zooKeeper查看"></a>4.1.1 通过zooKeeper查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">15</span>] ls /brokers/topics</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-1-2-通过kafka-topics查看"><a href="#4-1-2-通过kafka-topics查看" class="headerlink" title="4.1.2 通过kafka-topics查看"></a>4.1.2 通过kafka-topics查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --list</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-2-查看指定主题"><a href="#4-2-查看指定主题" class="headerlink" title="4.2 查看指定主题"></a>4.2 查看指定主题</h2><h3 id="4-2-1-通过zooKeeper查看"><a href="#4-2-1-通过zooKeeper查看" class="headerlink" title="4.2.1 通过zooKeeper查看"></a>4.2.1 通过zooKeeper查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">15</span>] get /brokers/topics/create-topics</span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:&#123;<span class="string">"2"</span>:[<span class="number">0</span>,<span class="number">2</span>],<span class="string">"1"</span>:[<span class="number">2</span>,<span class="number">1</span>],<span class="string">"0"</span>:[<span class="number">1</span>,<span class="number">0</span>]&#125;&#125;</span><br><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">19</span>] get /config/topics/create-topics</span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"config"</span>:&#123;<span class="string">"max.message.bytes"</span>:<span class="string">"30000"</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-2-2-通过kafka-topics查看"><a href="#4-2-2-通过kafka-topics查看" class="headerlink" title="4.2.2 通过kafka-topics查看"></a>4.2.2 通过kafka-topics查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --describe --topic create-topics</span><br><span class="line">Topic:create-topics     PartitionCount:<span class="number">3</span>        ReplicationFactor:<span class="number">2</span>     Configs:max.message.bytes=<span class="number">30000</span></span><br><span class="line">        Topic: create-topics    Partition: <span class="number">0</span>    Leader: <span class="number">1</span>       Replicas: <span class="number">1</span>,<span class="number">0</span>   Isr: <span class="number">1</span>,<span class="number">0</span></span><br><span class="line">        Topic: create-topics    Partition: <span class="number">1</span>    Leader: <span class="number">2</span>       Replicas: <span class="number">2</span>,<span class="number">1</span>   Isr: <span class="number">2</span>,<span class="number">1</span></span><br><span class="line">        Topic: create-topics    Partition: <span class="number">2</span>    Leader: <span class="number">0</span>       Replicas: <span class="number">0</span>,<span class="number">2</span>   Isr: <span class="number">0</span>,<span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-2-3-通过kafka-configs查看"><a href="#4-2-3-通过kafka-configs查看" class="headerlink" title="4.2.3 通过kafka-configs查看"></a>4.2.3 通过kafka-configs查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt;  D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-configs.bat --zookeeper localhost:<span class="number">2181</span> --d D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-configs.bat --zookeeper localhost:<span class="number">2181</span> --describe --entity-type topics --entity-name create-topics</span><br><span class="line">Configs <span class="keyword">for</span> topic <span class="string">'create-topics'</span> are max.message.bytes=<span class="number">30000</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="5-修改主题"><a href="#5-修改主题" class="headerlink" title="5. 修改主题"></a>5. 修改主题</h1><h2 id="5-1-修改主题分区数"><a href="#5-1-修改主题分区数" class="headerlink" title="5.1 修改主题分区数"></a>5.1 修改主题分区数</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt;  D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --alter --topic alter-topics --partitions <span class="number">4</span></span><br><span class="line">WARNING: <span class="keyword">If</span> partitions are increased <span class="keyword">for</span> a topic that has a key, the partition logic or ordering of the messages will be affected</span><br><span class="line">Adding partitions succeeded!</span><br></pre></td></tr></table></figure>
-
-<h2 id="5-2-修改主题的配置"><a href="#5-2-修改主题的配置" class="headerlink" title="5.2 修改主题的配置"></a>5.2 修改主题的配置</h2><h3 id="5-2-1-通过kafka-topcis修改"><a href="#5-2-1-通过kafka-topcis修改" class="headerlink" title="5.2.1 通过kafka-topcis修改"></a>5.2.1 通过kafka-topcis修改</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt;  D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --alter --topic alter-topics --config max.message.bytes=<span class="number">20000</span></span><br><span class="line">WARNING: Altering topic configuration from this script has been deprecated and may be removed <span class="keyword">in</span> future releases.</span><br><span class="line">         Going forward, please use kafka-configs.sh <span class="keyword">for</span> this functionality       Updated config <span class="keyword">for</span> topic alter-topics.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --alter --topic alter-topics --delete-config max.message.bytes</span><br><span class="line">WARNING: Altering topic configuration from this script has been deprecated and may be removed <span class="keyword">in</span> future releases.</span><br><span class="line">         Going forward, please use kafka-configs.sh <span class="keyword">for</span> this functionality       Updated config <span class="keyword">for</span> topic alter-topics.</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-2-2-通过kafka-configs修改"><a href="#5-2-2-通过kafka-configs修改" class="headerlink" title="5.2.2 通过kafka-configs修改"></a>5.2.2 通过kafka-configs修改</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-configs.bat -zookeeper localhost:<span class="number">2181</span> --alter --entity-type topics --entity-name create-topics --add-config max.message.bytes=<span class="number">30000</span></span><br><span class="line">Completed Updating config <span class="keyword">for</span> entity: topic <span class="string">'create-topics'</span>.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-configs.bat -zookeeper localhost:<span class="number">2181</span> --alter --entity-type topics --entity-name alter-topics --delete-config max.message.bytes</span><br><span class="line">Completed Updating config <span class="keyword">for</span> entity: topic <span class="string">'alter-topics'</span>.</span><br></pre></td></tr></table></figure>
-
-<h1 id="6-删除主题"><a href="#6-删除主题" class="headerlink" title="6. 删除主题"></a>6. 删除主题</h1><p>删除主题实际上是在zookeeper的<code>/admin/delete_topics</code>目录下创建<topic-name>文件夹。</topic-name></p>
-<h2 id="6-1-使用kafka-topics删除"><a href="#6-1-使用kafka-topics删除" class="headerlink" title="6.1 使用kafka-topics删除"></a>6.1 使用kafka-topics删除</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --delete --topic alter-topics</span><br><span class="line">Topic alter-topics is marked <span class="keyword">for</span> deletion.</span><br><span class="line">Note: This will have no impact <span class="keyword">if</span> delete.topic.enable is not set to true.</span><br></pre></td></tr></table></figure>
-
-<h2 id="6-2-使用zookeeper删除"><a href="#6-2-使用zookeeper删除" class="headerlink" title="6.2 使用zookeeper删除"></a>6.2 使用zookeeper删除</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">26</span>] create /admin/delete_topics/alter-topics <span class="string">""</span></span><br><span class="line">Created /admin/delete_topics/alter-topics</span><br></pre></td></tr></table></figure>
-
-<h1 id="7-重新分配leader"><a href="#7-重新分配leader" class="headerlink" title="7. 重新分配leader"></a>7. 重新分配leader</h1><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"partitions"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"topic-partition"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"topic-partition"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"partition"</span>: <span class="number">2</span>,</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"topic-partition"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-preferred-replica-election.bat --zookeeper localhost:<span class="number">2181</span> --path-to-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\election.json</span><br><span class="line">Warning: --zookeeper is deprecated and will be removed <span class="keyword">in</span> a future version of Kafka.</span><br><span class="line">Use --bootstrap-server instead to specify a broker to connect to.</span><br><span class="line">Created preferred replica election path with topic-partition-<span class="number">0</span>,topic-partition-<span class="number">1</span>,topic-partition-<span class="number">2</span></span><br><span class="line">Successfully started preferred replica election <span class="keyword">for</span> partitions Set(topic-partition-<span class="number">0</span>, topic-partition-<span class="number">1</span>, topic-partition-<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<h1 id="8-分区重分配"><a href="#8-分区重分配" class="headerlink" title="8. 分区重分配"></a>8. 分区重分配</h1><h2 id="8-1-创建一个包含主题清单的JSON文件"><a href="#8-1-创建一个包含主题清单的JSON文件" class="headerlink" title="8.1 创建一个包含主题清单的JSON文件"></a>8.1 创建一个包含主题清单的JSON文件</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"topics"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"topic"</span>: <span class="string">"topic-zero"</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">	<span class="attr">"version"</span>:<span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="8-2-根据主题清单和broker节点清单生成重分配方案"><a href="#8-2-根据主题清单和broker节点清单生成重分配方案" class="headerlink" title="8.2 根据主题清单和broker节点清单生成重分配方案"></a>8.2 根据主题清单和broker节点清单生成重分配方案</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-reassign-partitions.bat --zookeeper localhost:<span class="number">2181</span> --generate --topics-to-move-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\json\reassign.json --broker-list <span class="number">0</span>,<span class="number">2</span></span><br><span class="line">Current partition replica assignment</span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">2</span>,<span class="string">"replicas"</span>:[<span class="number">1</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">1</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">3</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">0</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">1</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">Proposed partition reassignment configuration</span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">2</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">1</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">3</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-reassign"</span>,<span class="string">"partition"</span>:<span class="number">0</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;]&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="8-3-执行方案"><a href="#8-3-执行方案" class="headerlink" title="8.3 执行方案"></a>8.3 执行方案</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\<span class="number">11597</span>&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-reassign-partitions.bat --zookeeper localhost:<span class="number">2181</span> --execute --reassignment-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\json\project.json</span><br><span class="line">Current partition replica assignment</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">2</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">1</span>,<span class="string">"replicas"</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">0</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">Save this to use as the --reassignment-json-file option during rollback</span><br><span class="line">Successfully started reassignment of partitions.</span><br></pre></td></tr></table></figure>
-
-<h2 id="8-4-验证结果"><a href="#8-4-验证结果" class="headerlink" title="8.4 验证结果"></a>8.4 验证结果</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\<span class="number">11597</span>&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-reassign-partitions.bat --zookeeper localhost:<span class="number">2181</span> --verify --reassignment-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\json\project.json</span><br><span class="line">Status of partition reassignment:</span><br><span class="line">Reassignment of partition topic-zero-<span class="number">2</span> completed successfully</span><br><span class="line">Reassignment of partition topic-zero-<span class="number">1</span> completed successfully</span><br><span class="line">Reassignment of partition topic-zero-<span class="number">0</span> completed successfully</span><br></pre></td></tr></table></figure>
-
-<h1 id="9-复制限流"><a href="#9-复制限流" class="headerlink" title="9. 复制限流"></a>9. 复制限流</h1><h2 id="9-1-主题级别"><a href="#9-1-主题级别" class="headerlink" title="9.1 主题级别"></a>9.1 主题级别</h2><p><code>follower.replication.throttled.replicas</code><br><code>leader.``replication.throttled.replicas</code></p>
-<h2 id="9-2-broker级别"><a href="#9-2-broker级别" class="headerlink" title="9.2 broker级别"></a>9.2 broker级别</h2><p><code>follower.replication.throttled.rate</code><br><code>leader.``replication.throttled.rate</code></p>
-<h2 id="9-3-使用–throttle"><a href="#9-3-使用–throttle" class="headerlink" title="9.3 使用–throttle"></a>9.3 使用–throttle</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PS C:\Users\<span class="number">11597</span>&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-reassign-partitions.bat --zookeeper localhost:<span class="number">2181</span> --execute --reassignment-json-file D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\json\project.json --throttle <span class="number">1024</span></span><br><span class="line">Current partition replica assignment</span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"version"</span>:<span class="number">1</span>,<span class="string">"partitions"</span>:[&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">2</span>,<span class="string">"replicas"</span>:[<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">1</span>,<span class="string">"replicas"</span>:[<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;,&#123;<span class="string">"topic"</span>:<span class="string">"topic-zero"</span>,<span class="string">"partition"</span>:<span class="number">0</span>,<span class="string">"replicas"</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>],<span class="string">"log_dirs"</span>:[<span class="string">"any"</span>,<span class="string">"any"</span>,<span class="string">"any"</span>]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">Save this to use as the --reassignment-json-file option during rollback</span><br><span class="line">Warning: You must run Verify periodically, <span class="keyword">until</span> the reassignment completes, to ensure the throttle is removed. You can also alter the throttle by rerunning the Execute command passing a new value.</span><br><span class="line">The inter-broker throttle limit was set to <span class="number">1024</span> B/s</span><br><span class="line">Successfully started reassignment of partitions.</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/15/Kakfa实践：一、基本概念/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -710,7 +710,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-15T15:42:27+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-15T16:57:23+08:00">
                 2020-01-15
               </time>
             
