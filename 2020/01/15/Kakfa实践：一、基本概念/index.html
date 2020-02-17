@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="kafka,">
 
 
 
@@ -77,18 +77,23 @@
 
 
 
-<meta name="description" content="software engineer">
-<meta name="keywords" content="softwares">
-<meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="https://jiangwenjie.github.io/archive/index.html">
+<meta name="description" content="一、基础概念介绍Kafka的基本组成和常用概念。   1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消">
+<meta name="keywords" content="kafka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kakfa实践：一、基本概念">
+<meta property="og:url" content="https://jiangwenjie.github.io/2020/01/15/Kakfa实践：一、基本概念/index.html">
 <meta property="og:site_name" content="姜文杰|个人博客">
-<meta property="og:description" content="software engineer">
+<meta property="og:description" content="一、基础概念介绍Kafka的基本组成和常用概念。   1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-06T09:07:09.547Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606045-c35b331e-8a33-40bf-aafd-2e46f2aa090c.png#align=left&display=inline&height=460&name=1.png&originHeight=460&originWidth=1146&size=15775&status=done&width=1146">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606096-0cd0b52a-adf8-4b4f-8769-613829d25980.png#align=left&display=inline&height=626&name=2.png&originHeight=626&originWidth=1140&size=18633&status=done&width=1140">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606065-032677de-0bb8-43f3-8ee3-b4af0611aad8.png#align=left&display=inline&height=626&name=3.png&originHeight=626&originWidth=1156&size=19007&status=done&width=1156">
+<meta property="og:updated_time" content="2020-02-17T07:47:43.816Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="归档">
-<meta name="twitter:description" content="software engineer">
+<meta name="twitter:title" content="Kakfa实践：一、基本概念">
+<meta name="twitter:description" content="一、基础概念介绍Kafka的基本组成和常用概念。   1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975">
 
 
 
@@ -118,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://jiangwenjie.github.io/archive/">
+  <link rel="canonical" href="https://jiangwenjie.github.io/2020/01/15/Kakfa实践：一、基本概念/">
 
 
 
 
 
-  <title>归档 | 姜文杰|个人博客</title>
+  <title>Kakfa实践：一、基本概念 | 姜文杰|个人博客</title>
   
 
 
@@ -281,33 +286,194 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/15/Kakfa实践：一、基本概念/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="姜文杰|个人博客">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">归档</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">Kakfa实践：一、基本概念</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-15T15:42:27+08:00">
+                2020-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Kafka/" itemprop="url" rel="index">
+                    <span itemprop="name">Kafka</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="一、基础概念"><a href="#一、基础概念" class="headerlink" title="一、基础概念"></a>一、基础概念</h1><p>介绍Kafka的基本组成和常用概念。</p>
+<hr>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975" alt="未命名文件.png"></p>
+<h1 id="1-Producer"><a href="#1-Producer" class="headerlink" title="1.Producer"></a>1.Producer</h1><p>生产者，负责创建消息，并将消息发送到Kafka。</p>
+<h1 id="2-Consumer"><a href="#2-Consumer" class="headerlink" title="2.Consumer"></a>2.Consumer</h1><p>消费者，负责连接到Kafka并接收消息。</p>
+<h1 id="3-Broker"><a href="#3-Broker" class="headerlink" title="3.Broker"></a>3.Broker</h1><p>服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。</p>
+<h2 id="3-1-Topic"><a href="#3-1-Topic" class="headerlink" title="3.1 Topic"></a>3.1 Topic</h2><p>主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需要指定主题。</p>
+<h2 id="3-2-Partition"><a href="#3-2-Partition" class="headerlink" title="3.2 Partition"></a>3.2 Partition</h2><p>分区，一个主题有多个分区，一个分区只属于一个主题，同一主题的不同分区包含不同的消息。消息在发送到broker时会根据规则选择分区。</p>
+<h3 id="3-2-1-Replicas"><a href="#3-2-1-Replicas" class="headerlink" title="3.2.1 Replicas"></a>3.2.1 Replicas</h3><p>分区副本，一主多从关系，主副本为Leader，负责处理读写请求；从副本为Follower，只负责同步Leader消息，不处理读写请求；当Leader故障时，会从Follower中按规则选举出一个晋升为Leader。<br>Kafka中所有副本统称为AR（Assigned Replicas）。</p>
+<h4 id="3-2-1-1-ISR（In-Sync-Replicas）"><a href="#3-2-1-1-ISR（In-Sync-Replicas）" class="headerlink" title="3.2.1.1 ISR（In-Sync Replicas）"></a>3.2.1.1 ISR（In-Sync Replicas）</h4><p>所有与Leader副本保持一定程度同步的副本（包括Leader副本）。</p>
+<h4 id="3-2-1-2-OSR（Out-Of-Sync-Replicas）"><a href="#3-2-1-2-OSR（Out-Of-Sync-Replicas）" class="headerlink" title="3.2.1.2 OSR（Out-Of-Sync Replicas）"></a>3.2.1.2 OSR（Out-Of-Sync Replicas）</h4><p>所有与Leader副本同步滞后的副本（不包括Leader副本）。</p>
+<h3 id="3-2-2-Offset"><a href="#3-2-2-Offset" class="headerlink" title="3.2.2 Offset"></a>3.2.2 Offset</h3><p>消息在分区内的唯一标识，不可跨分区。</p>
+<h4 id="3-2-2-1-HW（High-Watermark）"><a href="#3-2-2-1-HW（High-Watermark）" class="headerlink" title="3.2.2.1 HW（High Watermark）"></a>3.2.2.1 HW（High Watermark）</h4><p>一个特定的偏移量，消费者只能拉到该偏移量之前的消息[LSO,HW)。[HW,LEO)是未同步完成的偏移量。</p>
+<h4 id="3-2-2-2-LSO（LogStartOffsert）"><a href="#3-2-2-2-LSO（LogStartOffsert）" class="headerlink" title="3.2.2.2 LSO（LogStartOffsert）"></a>3.2.2.2 LSO（LogStartOffsert）</h4><p>起始偏移量。</p>
+<h4 id="3-2-2-3-LEO（LogEndOffsert）"><a href="#3-2-2-3-LEO（LogEndOffsert）" class="headerlink" title="3.2.2.3 LEO（LogEndOffsert）"></a>3.2.2.3 LEO（LogEndOffsert）</h4><p>当前将要写入的最新消息的偏移量。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606045-c35b331e-8a33-40bf-aafd-2e46f2aa090c.png#align=left&display=inline&height=460&name=1.png&originHeight=460&originWidth=1146&size=15775&status=done&width=1146" alt="1.png"><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606096-0cd0b52a-adf8-4b4f-8769-613829d25980.png#align=left&display=inline&height=626&name=2.png&originHeight=626&originWidth=1140&size=18633&status=done&width=1140" alt="2.png"><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606065-032677de-0bb8-43f3-8ee3-b4af0611aad8.png#align=left&display=inline&height=626&name=3.png&originHeight=626&originWidth=1156&size=19007&status=done&width=1156" alt="3.png"></p>
+
       
     </div>
     
     
     
+
+    
+      <div>
+        <div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="姜文杰 wechat" style="width: 200px; max-width: 100%;">
+    <div>欢迎订阅我的微信公众号！</div>
+</div>
+
+      </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kafka/" rel="tag"># kafka</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/25/Kakfa实践：三、基本命令/" rel="prev" title="Kakfa实践：三、基本命令">
+                Kakfa实践：三、基本命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -345,8 +511,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            关于
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -438,6 +613,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、基础概念"><span class="nav-number">1.</span> <span class="nav-text">一、基础概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Producer"><span class="nav-number">2.</span> <span class="nav-text">1.Producer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Consumer"><span class="nav-number">3.</span> <span class="nav-text">2.Consumer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Broker"><span class="nav-number">4.</span> <span class="nav-text">3.Broker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Topic"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Topic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Partition"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 Partition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Replicas"><span class="nav-number">4.2.1.</span> <span class="nav-text">3.2.1 Replicas</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-1-ISR（In-Sync-Replicas）"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">3.2.1.1 ISR（In-Sync Replicas）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-2-OSR（Out-Of-Sync-Replicas）"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">3.2.1.2 OSR（Out-Of-Sync Replicas）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-Offset"><span class="nav-number">4.2.2.</span> <span class="nav-text">3.2.2 Offset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-1-HW（High-Watermark）"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">3.2.2.1 HW（High Watermark）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-2-LSO（LogStartOffsert）"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">3.2.2.2 LSO（LogStartOffsert）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-3-LEO（LogEndOffsert）"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">3.2.2.3 LEO（LogEndOffsert）</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
