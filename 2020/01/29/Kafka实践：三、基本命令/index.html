@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。 建立zookeeper节点1PS D:\kafka_2.12-2.3.0\bin\windows&amp;gt; D:\zookeeper-3.4.13\bin\zkServer.bat  启动kafka节点我这里启动了3个节点，配置文件为server.properties，server1.properties``s">
+<meta name="description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。">
 <meta name="keywords" content="kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka实践：三、基本命令">
 <meta property="og:url" content="https://jiangwenjie.github.io/2020/01/29/Kafka实践：三、基本命令/index.html">
 <meta property="og:site_name" content="姜文杰|个人博客">
-<meta property="og:description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。 建立zookeeper节点1PS D:\kafka_2.12-2.3.0\bin\windows&amp;gt; D:\zookeeper-3.4.13\bin\zkServer.bat  启动kafka节点我这里启动了3个节点，配置文件为server.properties，server1.properties``s">
+<meta property="og:description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-17T10:46:39.214Z">
+<meta property="og:updated_time" content="2020-02-17T11:14:33.828Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka实践：三、基本命令">
-<meta name="twitter:description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。 建立zookeeper节点1PS D:\kafka_2.12-2.3.0\bin\windows&amp;gt; D:\zookeeper-3.4.13\bin\zkServer.bat  启动kafka节点我这里启动了3个节点，配置文件为server.properties，server1.properties``s">
+<meta name="twitter:description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。">
 
 
 
@@ -364,14 +364,13 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv">本文总阅读量
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
 
+          
+              <div class="post-description">
+                  搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。
+              </div>
           
 
         </div>
@@ -387,8 +386,7 @@
       
 
       
-        <p><em>搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。</em></p>
-<h1 id="建立zookeeper节点"><a href="#建立zookeeper节点" class="headerlink" title="建立zookeeper节点"></a>建立zookeeper节点</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\zookeeper-<span class="number">3.4</span>.<span class="number">13</span>\bin\zkServer.bat</span><br></pre></td></tr></table></figure>
+        <h1 id="建立zookeeper节点"><a href="#建立zookeeper节点" class="headerlink" title="建立zookeeper节点"></a>建立zookeeper节点</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\zookeeper-<span class="number">3.4</span>.<span class="number">13</span>\bin\zkServer.bat</span><br></pre></td></tr></table></figure>
 
 <h1 id="启动kafka节点"><a href="#启动kafka节点" class="headerlink" title="启动kafka节点"></a>启动kafka节点</h1><p>我这里启动了3个节点，配置文件为<code>server.properties</code>，<code>server1.properties``server2.properties</code>，对应的brokerId分别为0，1，2。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-server-start.bat D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\config\server.properties</span><br></pre></td></tr></table></figure>
@@ -690,26 +688,6 @@
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      本站访客数
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
-    </span>
-  
-
-  
-    <span class="site-pv">
-      本站总访问量
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
-    </span>
-  
-</div>
-
 
 
 

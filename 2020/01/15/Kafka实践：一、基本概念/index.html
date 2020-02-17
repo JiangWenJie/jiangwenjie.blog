@@ -77,22 +77,22 @@
 
 
 
-<meta name="description" content="介绍Kafka的基本组成和常用概念。  Producer生产者，负责创建消息，并将消息发送到Kafka。 Consumer消费者，负责连接到Kafka并接收消息。 Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需要指定主题。 Pa">
+<meta name="description" content="介绍Kafka的基本组成和常用概念。">
 <meta name="keywords" content="kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka实践：一、基本概念">
 <meta property="og:url" content="https://jiangwenjie.github.io/2020/01/15/Kafka实践：一、基本概念/index.html">
 <meta property="og:site_name" content="姜文杰|个人博客">
-<meta property="og:description" content="介绍Kafka的基本组成和常用概念。  Producer生产者，负责创建消息，并将消息发送到Kafka。 Consumer消费者，负责连接到Kafka并接收消息。 Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需要指定主题。 Pa">
+<meta property="og:description" content="介绍Kafka的基本组成和常用概念。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606045-c35b331e-8a33-40bf-aafd-2e46f2aa090c.png#align=left&display=inline&height=460&name=1.png&originHeight=460&originWidth=1146&size=15775&status=done&width=1146">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606096-0cd0b52a-adf8-4b4f-8769-613829d25980.png#align=left&display=inline&height=626&name=2.png&originHeight=626&originWidth=1140&size=18633&status=done&width=1140">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606065-032677de-0bb8-43f3-8ee3-b4af0611aad8.png#align=left&display=inline&height=626&name=3.png&originHeight=626&originWidth=1156&size=19007&status=done&width=1156">
-<meta property="og:updated_time" content="2020-02-17T10:48:26.768Z">
+<meta property="og:updated_time" content="2020-02-17T11:12:56.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka实践：一、基本概念">
-<meta name="twitter:description" content="介绍Kafka的基本组成和常用概念。  Producer生产者，负责创建消息，并将消息发送到Kafka。 Consumer消费者，负责连接到Kafka并接收消息。 Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需要指定主题。 Pa">
+<meta name="twitter:description" content="介绍Kafka的基本组成和常用概念。">
 <meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975">
 
 
@@ -369,14 +369,13 @@
           
 
           
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv">本文总阅读量
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
 
           
 
+          
+              <div class="post-description">
+                  介绍Kafka的基本组成和常用概念。
+              </div>
           
 
         </div>
@@ -392,8 +391,7 @@
       
 
       
-        <p><em>介绍Kafka的基本组成和常用概念。</em></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975" alt="未命名文件.png"></p>
+        <p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975" alt="未命名文件.png"></p>
 <h1 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h1><p>生产者，负责创建消息，并将消息发送到Kafka。</p>
 <h1 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h1><p>消费者，负责连接到Kafka并接收消息。</p>
 <h1 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h1><p>服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。</p>
@@ -660,26 +658,6 @@
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      本站访客数
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
-    </span>
-  
-
-  
-    <span class="site-pv">
-      本站总访问量
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
-    </span>
-  
-</div>
-
 
 
 
