@@ -77,22 +77,22 @@
 
 
 
-<meta name="description" content="一、基础概念介绍Kafka的基本组成和常用概念。   1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消">
+<meta name="description" content="介绍Kafka的基本组成和常用概念。 1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需">
 <meta name="keywords" content="kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kakfa实践：一、基本概念">
 <meta property="og:url" content="https://jiangwenjie.github.io/2020/01/15/Kakfa实践：一、基本概念/index.html">
 <meta property="og:site_name" content="姜文杰|个人博客">
-<meta property="og:description" content="一、基础概念介绍Kafka的基本组成和常用概念。   1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消">
+<meta property="og:description" content="介绍Kafka的基本组成和常用概念。 1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606045-c35b331e-8a33-40bf-aafd-2e46f2aa090c.png#align=left&display=inline&height=460&name=1.png&originHeight=460&originWidth=1146&size=15775&status=done&width=1146">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606096-0cd0b52a-adf8-4b4f-8769-613829d25980.png#align=left&display=inline&height=626&name=2.png&originHeight=626&originWidth=1140&size=18633&status=done&width=1140">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606065-032677de-0bb8-43f3-8ee3-b4af0611aad8.png#align=left&display=inline&height=626&name=3.png&originHeight=626&originWidth=1156&size=19007&status=done&width=1156">
-<meta property="og:updated_time" content="2020-02-17T08:05:43.354Z">
+<meta property="og:updated_time" content="2020-02-17T10:14:50.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kakfa实践：一、基本概念">
-<meta name="twitter:description" content="一、基础概念介绍Kafka的基本组成和常用概念。   1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消">
+<meta name="twitter:description" content="介绍Kafka的基本组成和常用概念。 1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需">
 <meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975">
 
 
@@ -135,16 +135,6 @@
 
 
 
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?f9b16a589bec714ecf0e6e31f9fb806b";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
 
@@ -397,9 +387,7 @@
       
 
       
-        <h1 id="一、基础概念"><a href="#一、基础概念" class="headerlink" title="一、基础概念"></a>一、基础概念</h1><p>介绍Kafka的基本组成和常用概念。</p>
-<hr>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975" alt="未命名文件.png"></p>
+        <h2 id="介绍Kafka的基本组成和常用概念。"><a href="#介绍Kafka的基本组成和常用概念。" class="headerlink" title="介绍Kafka的基本组成和常用概念。"></a>介绍Kafka的基本组成和常用概念。</h2><p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975" alt="未命名文件.png"></p>
 <h1 id="1-Producer"><a href="#1-Producer" class="headerlink" title="1.Producer"></a>1.Producer</h1><p>生产者，负责创建消息，并将消息发送到Kafka。</p>
 <h1 id="2-Consumer"><a href="#2-Consumer" class="headerlink" title="2.Consumer"></a>2.Consumer</h1><p>消费者，负责连接到Kafka并接收消息。</p>
 <h1 id="3-Broker"><a href="#3-Broker" class="headerlink" title="3.Broker"></a>3.Broker</h1><p>服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。</p>
@@ -628,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、基础概念"><span class="nav-number">1.</span> <span class="nav-text">一、基础概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Producer"><span class="nav-number">2.</span> <span class="nav-text">1.Producer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Consumer"><span class="nav-number">3.</span> <span class="nav-text">2.Consumer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Broker"><span class="nav-number">4.</span> <span class="nav-text">3.Broker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Topic"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Topic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Partition"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 Partition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Replicas"><span class="nav-number">4.2.1.</span> <span class="nav-text">3.2.1 Replicas</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-1-ISR（In-Sync-Replicas）"><span class="nav-number">4.2.1.1.</span> <span class="nav-text">3.2.1.1 ISR（In-Sync Replicas）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-2-OSR（Out-Of-Sync-Replicas）"><span class="nav-number">4.2.1.2.</span> <span class="nav-text">3.2.1.2 OSR（Out-Of-Sync Replicas）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-Offset"><span class="nav-number">4.2.2.</span> <span class="nav-text">3.2.2 Offset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-1-HW（High-Watermark）"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">3.2.2.1 HW（High Watermark）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-2-LSO（LogStartOffsert）"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">3.2.2.2 LSO（LogStartOffsert）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-3-LEO（LogEndOffsert）"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">3.2.2.3 LEO（LogEndOffsert）</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍Kafka的基本组成和常用概念。"><span class="nav-number">1.</span> <span class="nav-text">介绍Kafka的基本组成和常用概念。</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Producer"><span class="nav-number"></span> <span class="nav-text">1.Producer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Consumer"><span class="nav-number"></span> <span class="nav-text">2.Consumer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Broker"><span class="nav-number"></span> <span class="nav-text">3.Broker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Topic"><span class="nav-number">1.</span> <span class="nav-text">3.1 Topic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Partition"><span class="nav-number">2.</span> <span class="nav-text">3.2 Partition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Replicas"><span class="nav-number">2.1.</span> <span class="nav-text">3.2.1 Replicas</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-1-ISR（In-Sync-Replicas）"><span class="nav-number">2.1.1.</span> <span class="nav-text">3.2.1.1 ISR（In-Sync Replicas）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-2-OSR（Out-Of-Sync-Replicas）"><span class="nav-number">2.1.2.</span> <span class="nav-text">3.2.1.2 OSR（Out-Of-Sync Replicas）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-Offset"><span class="nav-number">2.2.</span> <span class="nav-text">3.2.2 Offset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-1-HW（High-Watermark）"><span class="nav-number">2.2.1.</span> <span class="nav-text">3.2.2.1 HW（High Watermark）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-2-LSO（LogStartOffsert）"><span class="nav-number">2.2.2.</span> <span class="nav-text">3.2.2.2 LSO（LogStartOffsert）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-3-LEO（LogEndOffsert）"><span class="nav-number">2.2.3.</span> <span class="nav-text">3.2.2.3 LEO（LogEndOffsert）</span></a></li></ol></li></ol></li></ol></li></div>
             
 
           </div>
