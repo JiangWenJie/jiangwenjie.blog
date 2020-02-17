@@ -77,23 +77,20 @@
 
 
 
-<meta name="description" content="介绍Kafka的基本组成和常用概念。 1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需">
+<meta name="description" content="讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。 基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445import org.apache.kafka.clients.producer.*;import o">
 <meta name="keywords" content="kafka">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Kakfa实践：一、基本概念">
-<meta property="og:url" content="https://jiangwenjie.github.io/2020/01/15/Kakfa实践：一、基本概念/index.html">
+<meta property="og:title" content="Kafka实践：二、生产者">
+<meta property="og:url" content="https://jiangwenjie.github.io/2020/01/25/Kafka实践：二、生产者/index.html">
 <meta property="og:site_name" content="姜文杰|个人博客">
-<meta property="og:description" content="介绍Kafka的基本组成和常用概念。 1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需">
+<meta property="og:description" content="讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。 基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445import org.apache.kafka.clients.producer.*;import o">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606045-c35b331e-8a33-40bf-aafd-2e46f2aa090c.png#align=left&display=inline&height=460&name=1.png&originHeight=460&originWidth=1146&size=15775&status=done&width=1146">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606096-0cd0b52a-adf8-4b4f-8769-613829d25980.png#align=left&display=inline&height=626&name=2.png&originHeight=626&originWidth=1140&size=18633&status=done&width=1140">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606065-032677de-0bb8-43f3-8ee3-b4af0611aad8.png#align=left&display=inline&height=626&name=3.png&originHeight=626&originWidth=1156&size=19007&status=done&width=1156">
-<meta property="og:updated_time" content="2020-02-17T10:14:50.655Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/450073/1567069302453-da3e075f-8101-404c-9b93-2be0a49ecc9f.jpeg#align=left&display=inline&height=712&name=1111.jpg&originHeight=712&originWidth=1018&size=106524&status=done&width=1018">
+<meta property="og:updated_time" content="2020-02-17T10:47:32.809Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Kakfa实践：一、基本概念">
-<meta name="twitter:description" content="介绍Kafka的基本组成和常用概念。 1.Producer生产者，负责创建消息，并将消息发送到Kafka。 2.Consumer消费者，负责连接到Kafka并接收消息。 3.Broker服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。 3.1 Topic主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975">
+<meta name="twitter:title" content="Kafka实践：二、生产者">
+<meta name="twitter:description" content="讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。 基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445import org.apache.kafka.clients.producer.*;import o">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/450073/1567069302453-da3e075f-8101-404c-9b93-2be0a49ecc9f.jpeg#align=left&display=inline&height=712&name=1111.jpg&originHeight=712&originWidth=1018&size=106524&status=done&width=1018">
 
 
 
@@ -123,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://jiangwenjie.github.io/2020/01/15/Kakfa实践：一、基本概念/">
+  <link rel="canonical" href="https://jiangwenjie.github.io/2020/01/25/Kafka实践：二、生产者/">
 
 
 
 
 
-  <title>Kakfa实践：一、基本概念 | 姜文杰|个人博客</title>
+  <title>Kafka实践：二、生产者 | 姜文杰|个人博客</title>
   
 
 
@@ -298,7 +295,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/15/Kakfa实践：一、基本概念/">
+    <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/25/Kafka实践：二、生产者/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="姜文杰">
@@ -315,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Kakfa实践：一、基本概念</h1>
+          <h1 class="post-title" itemprop="name headline">Kafka实践：二、生产者</h1>
         
 
         <div class="post-meta">
@@ -327,8 +324,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-15T16:57:23+08:00">
-                2020-01-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-25T19:01:26+08:00">
+                2020-01-25
               </time>
             
 
@@ -369,6 +366,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
 
           
 
@@ -387,20 +389,58 @@
       
 
       
-        <h2 id="介绍Kafka的基本组成和常用概念。"><a href="#介绍Kafka的基本组成和常用概念。" class="headerlink" title="介绍Kafka的基本组成和常用概念。"></a>介绍Kafka的基本组成和常用概念。</h2><p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975" alt="未命名文件.png"></p>
-<h1 id="1-Producer"><a href="#1-Producer" class="headerlink" title="1.Producer"></a>1.Producer</h1><p>生产者，负责创建消息，并将消息发送到Kafka。</p>
-<h1 id="2-Consumer"><a href="#2-Consumer" class="headerlink" title="2.Consumer"></a>2.Consumer</h1><p>消费者，负责连接到Kafka并接收消息。</p>
-<h1 id="3-Broker"><a href="#3-Broker" class="headerlink" title="3.Broker"></a>3.Broker</h1><p>服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。</p>
-<h2 id="3-1-Topic"><a href="#3-1-Topic" class="headerlink" title="3.1 Topic"></a>3.1 Topic</h2><p>主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需要指定主题。</p>
-<h2 id="3-2-Partition"><a href="#3-2-Partition" class="headerlink" title="3.2 Partition"></a>3.2 Partition</h2><p>分区，一个主题有多个分区，一个分区只属于一个主题，同一主题的不同分区包含不同的消息。消息在发送到broker时会根据规则选择分区。</p>
-<h3 id="3-2-1-Replicas"><a href="#3-2-1-Replicas" class="headerlink" title="3.2.1 Replicas"></a>3.2.1 Replicas</h3><p>分区副本，一主多从关系，主副本为Leader，负责处理读写请求；从副本为Follower，只负责同步Leader消息，不处理读写请求；当Leader故障时，会从Follower中按规则选举出一个晋升为Leader。<br>Kafka中所有副本统称为AR（Assigned Replicas）。</p>
-<h4 id="3-2-1-1-ISR（In-Sync-Replicas）"><a href="#3-2-1-1-ISR（In-Sync-Replicas）" class="headerlink" title="3.2.1.1 ISR（In-Sync Replicas）"></a>3.2.1.1 ISR（In-Sync Replicas）</h4><p>所有与Leader副本保持一定程度同步的副本（包括Leader副本）。</p>
-<h4 id="3-2-1-2-OSR（Out-Of-Sync-Replicas）"><a href="#3-2-1-2-OSR（Out-Of-Sync-Replicas）" class="headerlink" title="3.2.1.2 OSR（Out-Of-Sync Replicas）"></a>3.2.1.2 OSR（Out-Of-Sync Replicas）</h4><p>所有与Leader副本同步滞后的副本（不包括Leader副本）。</p>
-<h3 id="3-2-2-Offset"><a href="#3-2-2-Offset" class="headerlink" title="3.2.2 Offset"></a>3.2.2 Offset</h3><p>消息在分区内的唯一标识，不可跨分区。</p>
-<h4 id="3-2-2-1-HW（High-Watermark）"><a href="#3-2-2-1-HW（High-Watermark）" class="headerlink" title="3.2.2.1 HW（High Watermark）"></a>3.2.2.1 HW（High Watermark）</h4><p>一个特定的偏移量，消费者只能拉到该偏移量之前的消息[LSO,HW)。[HW,LEO)是未同步完成的偏移量。</p>
-<h4 id="3-2-2-2-LSO（LogStartOffsert）"><a href="#3-2-2-2-LSO（LogStartOffsert）" class="headerlink" title="3.2.2.2 LSO（LogStartOffsert）"></a>3.2.2.2 LSO（LogStartOffsert）</h4><p>起始偏移量。</p>
-<h4 id="3-2-2-3-LEO（LogEndOffsert）"><a href="#3-2-2-3-LEO（LogEndOffsert）" class="headerlink" title="3.2.2.3 LEO（LogEndOffsert）"></a>3.2.2.3 LEO（LogEndOffsert）</h4><p>当前将要写入的最新消息的偏移量。</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606045-c35b331e-8a33-40bf-aafd-2e46f2aa090c.png#align=left&display=inline&height=460&name=1.png&originHeight=460&originWidth=1146&size=15775&status=done&width=1146" alt="1.png"><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606096-0cd0b52a-adf8-4b4f-8769-613829d25980.png#align=left&display=inline&height=626&name=2.png&originHeight=626&originWidth=1140&size=18633&status=done&width=1140" alt="2.png"><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543606065-032677de-0bb8-43f3-8ee3-b4af0611aad8.png#align=left&display=inline&height=626&name=3.png&originHeight=626&originWidth=1156&size=19007&status=done&width=1156" alt="3.png"></p>
+        <p><em>讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。</em></p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.producer.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.StringSerializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Kafka生产者客户端基本实例</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> jiangwenjie work.jwj@foxmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/8/23 3:31 PM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KafkaProducerAnalysis</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String brokerList=<span class="string">"localhost:9092"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String topic=<span class="string">"topic-demo"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 配置Kafka客户端</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> kafka的配置属性实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Properties <span class="title">initConfig</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Properties props=<span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">//ProducerConfig类提供了配置的key</span></span><br><span class="line">        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);</span><br><span class="line">        <span class="comment">//这里使用了Java的技巧获取类的全限定名字符串</span></span><br><span class="line">        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line">        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());</span><br><span class="line">        props.put(ProducerConfig.CLIENT_ID_CONFIG,<span class="string">"producer.client.id.demo"</span>);</span><br><span class="line">        <span class="keyword">return</span> props;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Properties props=initConfig();</span><br><span class="line">        <span class="comment">//创建生产者客户端实例</span></span><br><span class="line">        KafkaProducer&lt;String,String&gt; producer=<span class="keyword">new</span> KafkaProducer&lt;String, String&gt;(props);</span><br><span class="line">        <span class="comment">//创建消息</span></span><br><span class="line">        ProducerRecord&lt;String,String&gt; record=<span class="keyword">new</span> ProducerRecord&lt;String, String&gt;(topic,<span class="string">"hello,Kafka!"</span>);</span><br><span class="line">        <span class="comment">//发送消息</span></span><br><span class="line">        producer.send(record);</span><br><span class="line">        <span class="comment">//关闭生产者，释放资源</span></span><br><span class="line">        producer.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端配置必要的参数"><a href="#客户端配置必要的参数" class="headerlink" title="客户端配置必要的参数"></a>客户端配置必要的参数</h2><ul>
+<li><code>bootstrap.servers</code>:Kafka集群的broker的地址清单，以“<code>**,**</code>”分隔，只需要配置部分broker地址，其他地址可通过自动发现自动查找。</li>
+<li><code>key.serializer</code>:key的序列化器</li>
+<li><code>value.serializer</code>:value的序列化器</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 配置Kafka客户端</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> kafka的配置属性实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Properties <span class="title">initConfig</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Properties props=<span class="keyword">new</span> Properties();</span><br><span class="line">    <span class="comment">//ProducerConfig类提供了配置的key</span></span><br><span class="line">    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);</span><br><span class="line">    <span class="comment">//这里使用了Java的技巧获取类的全限定名字符串</span></span><br><span class="line">    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line">    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());</span><br><span class="line">    <span class="comment">//这里可以不提供，客户端会自动生成如producer-1类的格式</span></span><br><span class="line">    props.put(ProducerConfig.CLIENT_ID_CONFIG,<span class="string">"producer.client.id.demo"</span>);</span><br><span class="line">    <span class="keyword">return</span> props;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>所谓的序列化简单来说就是把Java的对象或者基本类型转换为byte[]，用于网络传输。</p>
+</blockquote>
+<h2 id="消息发送的方式"><a href="#消息发送的方式" class="headerlink" title="消息发送的方式"></a>消息发送的方式</h2><ul>
+<li>发后即忘：只负责发送，不关注发送结果。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">producer.send(record);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>同步：必须等待消息发送完成并获取结果。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    Future&lt;RecordMetadata&gt; future=producer.send(record);</span><br><span class="line">    RecordMetadata metadata=future.get();</span><br><span class="line">&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">    producer.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：<code>send()</code>方法本身是异步的，它返回一个<code>Future&lt;&gt;</code>对象，这是Java提供的异步获取结果的方式，但是<code>get()</code>方法是同步的。Future的设计理念是多线程方法立刻返回一个<code>Future</code>的对象，但是这个对象的<code>get()</code>方法应该在线程真正返回的时候调用，否则会导致线程挂起等待直到结果返回，可以通过<code>isDone()</code>判断是否计算完，<code>cancel()</code>取消计算，<code>isCancelled()</code>判断是否被取消。</p>
+</blockquote>
+<ul>
+<li>异步：通过客户端提供的<code>Callback()</code>接口实现，<code>RecordMetadata</code>和<code>Exception</code>互斥，只有一个非null。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">producer.send(record, <span class="keyword">new</span> Callback() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompletion</span><span class="params">(RecordMetadata metadata, Exception exception)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span>==exception)&#123;</span><br><span class="line">            System.out.println(metadata.topic()+metadata.offset());</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            exception.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="发送的过程"><a href="#发送的过程" class="headerlink" title="发送的过程"></a>发送的过程</h2><p>消息按序经过<strong>拦截器</strong>，<strong>序列化器</strong>，<strong>分区器</strong>。</p>
+<h3 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h3><ol>
+<li><p><code>public ProducerRecord&lt;K, V&gt; onSend(ProducerRecord&lt;K, V&gt; record)</code>方法：此方法会在序列化之前调用，可以用来对发送消息做记录或者修改（不推荐）。</p>
+</li>
+<li><p><code>void onAcknowledgement(RecordMetadata metadata, Exception exception)</code>方法：该方法确保一定会被调用，具体调用顺序如下：</p>
+<ul>
+<li>在发送成功，服务器响应之后，<code>callback()</code>方法调用之前被调用；</li>
+<li>在发送失败之后调用。</li>
+</ul>
+</li>
+<li><p><code>void close()</code>方法：用于清理资源，一般不需要重写，重写请注意幂等性。</p>
+<h3 id="序列化器"><a href="#序列化器" class="headerlink" title="序列化器"></a>序列化器</h3></li>
+<li><p><code>byte[] serialize(String topic, T data)</code>方法：用于序列化和反序列化。</p>
+<h3 id="分区器"><a href="#分区器" class="headerlink" title="分区器"></a>分区器</h3></li>
+<li><p><code>public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster)</code>方法：用于分区</p>
+<h1 id="原理剖析"><a href="#原理剖析" class="headerlink" title="原理剖析"></a>原理剖析</h1><p><img src="https://cdn.nlark.com/yuque/0/2019/jpeg/450073/1567069302453-da3e075f-8101-404c-9b93-2be0a49ecc9f.jpeg#align=left&display=inline&height=712&name=1111.jpg&originHeight=712&originWidth=1018&size=106524&status=done&width=1018" alt="1111.jpg"></p>
+<h2 id="消息累加器"><a href="#消息累加器" class="headerlink" title="消息累加器"></a>消息累加器</h2><p>网络请求是需要消耗带宽的，消息累加器负责把发往同一分区的消息批处理，·以节省网络带宽。也用于复用<code>ByteBuffer</code>，通过维护<code>BufferPool</code>实现，但只有数据&lt;=<code>batch.size</code>才会被复用。</p>
+<h2 id="InFlightRequest"><a href="#InFlightRequest" class="headerlink" title="InFlightRequest"></a>InFlightRequest</h2><p>负责把消息按broker再次归类，并缓存发送过的消息，方便在发送失败时重试，数量为<code>max.in.flight.requests.per.connection</code>，注意，如果要求消息有序，请将该值设为1。</p>
+<h2 id="元数据"><a href="#元数据" class="headerlink" title="元数据"></a>元数据</h2><p>元数据存储了Kafka集群的信息，会由客户端定时更新，时间间隔为<code>metadata.max.age.ms</code>。</p>
+</li>
+</ol>
 
       
     </div>
@@ -439,14 +479,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2020/01/15/Kafka实践：一、基本概念/" rel="next" title="Kafka实践：一、基本概念">
+                <i class="fa fa-chevron-left"></i> Kafka实践：一、基本概念
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/01/25/Kakfa实践：二、生产者/" rel="prev" title="Kakfa实践：二、生产者">
-                Kakfa实践：二、生产者 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/01/29/Kafka实践：三、基本命令/" rel="prev" title="Kafka实践：三、基本命令">
+                Kafka实践：三、基本命令 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -616,7 +660,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍Kafka的基本组成和常用概念。"><span class="nav-number">1.</span> <span class="nav-text">介绍Kafka的基本组成和常用概念。</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Producer"><span class="nav-number"></span> <span class="nav-text">1.Producer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Consumer"><span class="nav-number"></span> <span class="nav-text">2.Consumer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Broker"><span class="nav-number"></span> <span class="nav-text">3.Broker</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Topic"><span class="nav-number">1.</span> <span class="nav-text">3.1 Topic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Partition"><span class="nav-number">2.</span> <span class="nav-text">3.2 Partition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-Replicas"><span class="nav-number">2.1.</span> <span class="nav-text">3.2.1 Replicas</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-1-ISR（In-Sync-Replicas）"><span class="nav-number">2.1.1.</span> <span class="nav-text">3.2.1.1 ISR（In-Sync Replicas）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-2-OSR（Out-Of-Sync-Replicas）"><span class="nav-number">2.1.2.</span> <span class="nav-text">3.2.1.2 OSR（Out-Of-Sync Replicas）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-Offset"><span class="nav-number">2.2.</span> <span class="nav-text">3.2.2 Offset</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-1-HW（High-Watermark）"><span class="nav-number">2.2.1.</span> <span class="nav-text">3.2.2.1 HW（High Watermark）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-2-LSO（LogStartOffsert）"><span class="nav-number">2.2.2.</span> <span class="nav-text">3.2.2.2 LSO（LogStartOffsert）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-3-LEO（LogEndOffsert）"><span class="nav-number">2.2.3.</span> <span class="nav-text">3.2.2.3 LEO（LogEndOffsert）</span></a></li></ol></li></ol></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端配置必要的参数"><span class="nav-number">1.1.</span> <span class="nav-text">客户端配置必要的参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息发送的方式"><span class="nav-number">1.2.</span> <span class="nav-text">消息发送的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送的过程"><span class="nav-number">1.3.</span> <span class="nav-text">发送的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截器"><span class="nav-number">1.3.1.</span> <span class="nav-text">拦截器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化器"><span class="nav-number">1.3.2.</span> <span class="nav-text">序列化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分区器"><span class="nav-number">1.3.3.</span> <span class="nav-text">分区器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理剖析"><span class="nav-number">2.</span> <span class="nav-text">原理剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息累加器"><span class="nav-number">2.1.</span> <span class="nav-text">消息累加器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InFlightRequest"><span class="nav-number">2.2.</span> <span class="nav-text">InFlightRequest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元数据"><span class="nav-number">2.3.</span> <span class="nav-text">元数据</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -654,6 +698,26 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
 
 
 
