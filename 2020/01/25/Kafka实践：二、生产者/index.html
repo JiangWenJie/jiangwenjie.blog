@@ -77,19 +77,19 @@
 
 
 
-<meta name="description" content="讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。">
+<meta name="description" content="基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445import org.apache.kafka.clients.producer.*;import org.apache.kafka.common.serialization.StringSerializer;import jav">
 <meta name="keywords" content="kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka实践：二、生产者">
 <meta property="og:url" content="https://jiangwenjie.github.io/2020/01/25/Kafka实践：二、生产者/index.html">
 <meta property="og:site_name" content="姜文杰|个人博客">
-<meta property="og:description" content="讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。">
+<meta property="og:description" content="基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445import org.apache.kafka.clients.producer.*;import org.apache.kafka.common.serialization.StringSerializer;import jav">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/450073/1567069302453-da3e075f-8101-404c-9b93-2be0a49ecc9f.jpeg#align=left&display=inline&height=712&name=1111.jpg&originHeight=712&originWidth=1018&size=106524&status=done&width=1018">
-<meta property="og:updated_time" content="2020-02-17T11:14:02.081Z">
+<meta property="og:updated_time" content="2020-03-06T06:09:41.124Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka实践：二、生产者">
-<meta name="twitter:description" content="讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。">
+<meta name="twitter:description" content="基本使用123456789101112131415161718192021222324252627282930313233343536373839404142434445import org.apache.kafka.clients.producer.*;import org.apache.kafka.common.serialization.StringSerializer;import jav">
 <meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/450073/1567069302453-da3e075f-8101-404c-9b93-2be0a49ecc9f.jpeg#align=left&display=inline&height=712&name=1111.jpg&originHeight=712&originWidth=1018&size=106524&status=done&width=1018">
 
 
@@ -370,10 +370,6 @@
           
 
           
-              <div class="post-description">
-                  讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。
-              </div>
-          
 
         </div>
       </header>
@@ -390,6 +386,7 @@
       
         <h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.producer.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.StringSerializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Kafka生产者客户端基本实例</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> jiangwenjie work.jwj@foxmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/8/23 3:31 PM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KafkaProducerAnalysis</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String brokerList=<span class="string">"localhost:9092"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String topic=<span class="string">"topic-demo"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 配置Kafka客户端</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> kafka的配置属性实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Properties <span class="title">initConfig</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Properties props=<span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">//ProducerConfig类提供了配置的key</span></span><br><span class="line">        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);</span><br><span class="line">        <span class="comment">//这里使用了Java的技巧获取类的全限定名字符串</span></span><br><span class="line">        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line">        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());</span><br><span class="line">        props.put(ProducerConfig.CLIENT_ID_CONFIG,<span class="string">"producer.client.id.demo"</span>);</span><br><span class="line">        <span class="keyword">return</span> props;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Properties props=initConfig();</span><br><span class="line">        <span class="comment">//创建生产者客户端实例</span></span><br><span class="line">        KafkaProducer&lt;String,String&gt; producer=<span class="keyword">new</span> KafkaProducer&lt;String, String&gt;(props);</span><br><span class="line">        <span class="comment">//创建消息</span></span><br><span class="line">        ProducerRecord&lt;String,String&gt; record=<span class="keyword">new</span> ProducerRecord&lt;String, String&gt;(topic,<span class="string">"hello,Kafka!"</span>);</span><br><span class="line">        <span class="comment">//发送消息</span></span><br><span class="line">        producer.send(record);</span><br><span class="line">        <span class="comment">//关闭生产者，释放资源</span></span><br><span class="line">        producer.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
 <h2 id="客户端配置必要的参数"><a href="#客户端配置必要的参数" class="headerlink" title="客户端配置必要的参数"></a>客户端配置必要的参数</h2><ul>
 <li><code>bootstrap.servers</code>:Kafka集群的broker的地址清单，以“<code>**,**</code>”分隔，只需要配置部分broker地址，其他地址可通过自动发现自动查找。</li>
 <li><code>key.serializer</code>:key的序列化器</li>
@@ -573,7 +570,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -584,7 +581,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -595,7 +592,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

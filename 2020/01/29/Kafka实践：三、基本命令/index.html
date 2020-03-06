@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。">
+<meta name="description" content="建立zookeeper节点1PS D:\kafka_2.12-2.3.0\bin\windows&amp;gt; D:\zookeeper-3.4.13\bin\zkServer.bat  启动kafka节点我这里启动了3个节点，配置文件为server.properties，server1.properties``server2.properties，对应的brokerId分别为0，1，2。 1PS D:">
 <meta name="keywords" content="kafka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka实践：三、基本命令">
 <meta property="og:url" content="https://jiangwenjie.github.io/2020/01/29/Kafka实践：三、基本命令/index.html">
 <meta property="og:site_name" content="姜文杰|个人博客">
-<meta property="og:description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。">
+<meta property="og:description" content="建立zookeeper节点1PS D:\kafka_2.12-2.3.0\bin\windows&amp;gt; D:\zookeeper-3.4.13\bin\zkServer.bat  启动kafka节点我这里启动了3个节点，配置文件为server.properties，server1.properties``server2.properties，对应的brokerId分别为0，1，2。 1PS D:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-17T11:14:33.828Z">
+<meta property="og:updated_time" content="2020-03-06T06:09:41.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kafka实践：三、基本命令">
-<meta name="twitter:description" content="搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。">
+<meta name="twitter:description" content="建立zookeeper节点1PS D:\kafka_2.12-2.3.0\bin\windows&amp;gt; D:\zookeeper-3.4.13\bin\zkServer.bat  启动kafka节点我这里启动了3个节点，配置文件为server.properties，server1.properties``server2.properties，对应的brokerId分别为0，1，2。 1PS D:">
 
 
 
@@ -368,10 +368,6 @@
           
 
           
-              <div class="post-description">
-                  搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。
-              </div>
-          
 
         </div>
       </header>
@@ -393,6 +389,8 @@
 
 <h1 id="创建主题"><a href="#创建主题" class="headerlink" title="创建主题"></a>创建主题</h1><p>此操作会在zookeeper的<code>/brokers/topics/</code>目录下创建一个<topic-name>文件夹存放topic的分区信息。<br>此操作会在zookeeper的<code>/config/topics/</code>目录下创建<topic-name>文件夹存放该topic的配置信息。</topic-name></topic-name></p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --create --topic create-topics --partitions <span class="number">3</span> --replication-factor <span class="number">2</span></span><br><span class="line">Created topic create-topics.</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
 
 <h1 id="查看主题"><a href="#查看主题" class="headerlink" title="查看主题"></a>查看主题</h1><h2 id="查看所有主题"><a href="#查看所有主题" class="headerlink" title="查看所有主题"></a>查看所有主题</h2><h3 id="通过zooKeeper查看"><a href="#通过zooKeeper查看" class="headerlink" title="通过zooKeeper查看"></a>通过zooKeeper查看</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[zk: localhost:<span class="number">2181</span>(CONNECTED) <span class="number">15</span>] ls /brokers/topics</span><br></pre></td></tr></table></figure>
 
@@ -483,6 +481,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/03/06/如何增进对业务的深度思考/" rel="prev" title="程序员如何增进对业务的深度思考">
+                程序员如何增进对业务的深度思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -565,7 +567,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -576,7 +578,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -587,7 +589,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

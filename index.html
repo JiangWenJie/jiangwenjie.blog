@@ -293,6 +293,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/03/06/如何增进对业务的深度思考/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姜文杰">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="姜文杰|个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/06/如何增进对业务的深度思考/" itemprop="url">程序员如何增进对业务的深度思考</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-06T13:49:03+08:00">
+                2020-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/业务/" itemprop="url" rel="index">
+                    <span itemprop="name">业务</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="程序员如何增进对业务的深度思考"><a href="#程序员如何增进对业务的深度思考" class="headerlink" title="程序员如何增进对业务的深度思考"></a>程序员如何增进对业务的深度思考</h1><h1 id="理清需求与业务的关系"><a href="#理清需求与业务的关系" class="headerlink" title="理清需求与业务的关系"></a>理清需求与业务的关系</h1><p>首先，程序员从PD手里接到的资料叫“需求分析文档”，这是PD根据自己的理解对业务提出的解决方案。比如，笔者曾经做过一个针对物流行业的订单系统，需求大概如下：</p>
+<ul>
+<li>一期：<ul>
+<li>支持运输商订单，然后需求文档里列出运输商订单的字段：订单编号、线路、计费方式、状态、订单的生效日期等；</li>
+<li>订单要有权限，即订单只对订单的负责人及其上级可见，权限可分配；</li>
+<li>订单要支持创建、修改、取消等操作，对应订单的生命周期（正向：创建-&gt;审批-&gt;生成合同-&gt;合同签署（订单确认）-&gt;订单报价推送给结算系统进行计费-&gt;定期统计订单的费用信息；逆向：审批-&gt;订单修改（取消等））的流转；</li>
+</ul>
+</li>
+</ul>
+<p>注：这里对生命周期只做了简单的介绍，实际情况更复杂</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/03/06/如何增进对业务的深度思考/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://jiangwenjie.github.io/2020/01/29/Kafka实践：三、基本命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -385,10 +540,16 @@
 
       
         
-          搭建kafka集群环境的命令，包括：建立集群、创建主题、管理主题、重新选举、重分配分区。
+          <h1 id="建立zookeeper节点"><a href="#建立zookeeper节点" class="headerlink" title="建立zookeeper节点"></a>建立zookeeper节点</h1><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\zookeeper-<span class="number">3.4</span>.<span class="number">13</span>\bin\zkServer.bat</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动kafka节点"><a href="#启动kafka节点" class="headerlink" title="启动kafka节点"></a>启动kafka节点</h1><p>我这里启动了3个节点，配置文件为<code>server.properties</code>，<code>server1.properties``server2.properties</code>，对应的brokerId分别为0，1，2。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-server-start.bat D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\config\server.properties</span><br></pre></td></tr></table></figure>
+
+<h1 id="创建主题"><a href="#创建主题" class="headerlink" title="创建主题"></a>创建主题</h1><p>此操作会在zookeeper的<code>/brokers/topics/</code>目录下创建一个<topic-name>文件夹存放topic的分区信息。<br>此操作会在zookeeper的<code>/config/topics/</code>目录下创建<topic-name>文件夹存放该topic的配置信息。</topic-name></topic-name></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> PS D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows&gt; D:\kafka_2.<span class="number">12</span>-<span class="number">2.3</span>.<span class="number">0</span>\bin\windows\kafka-topics.bat --zookeeper localhost:<span class="number">2181</span> --create --topic create-topics --partitions <span class="number">3</span> --replication-factor <span class="number">2</span></span><br><span class="line">Created topic create-topics.</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/01/29/Kafka实践：三、基本命令/">
+            <a class="btn" href="/2020/01/29/Kafka实践：三、基本命令/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -531,10 +692,10 @@
 
       
         
-          讲述Kafka生产者的基本使用，包括如何配置一个Kafka客户端，发送消息的方式以及客户端的订制开发，随后进行客户端原理剖析。
+          <h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.clients.producer.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.kafka.common.serialization.StringSerializer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Kafka生产者客户端基本实例</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> jiangwenjie work.jwj@foxmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/8/23 3:31 PM</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.0</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KafkaProducerAnalysis</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String brokerList=<span class="string">"localhost:9092"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String topic=<span class="string">"topic-demo"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 配置Kafka客户端</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> kafka的配置属性实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Properties <span class="title">initConfig</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Properties props=<span class="keyword">new</span> Properties();</span><br><span class="line">        <span class="comment">//ProducerConfig类提供了配置的key</span></span><br><span class="line">        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,brokerList);</span><br><span class="line">        <span class="comment">//这里使用了Java的技巧获取类的全限定名字符串</span></span><br><span class="line">        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line">        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class.getName());</span><br><span class="line">        props.put(ProducerConfig.CLIENT_ID_CONFIG,<span class="string">"producer.client.id.demo"</span>);</span><br><span class="line">        <span class="keyword">return</span> props;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Properties props=initConfig();</span><br><span class="line">        <span class="comment">//创建生产者客户端实例</span></span><br><span class="line">        KafkaProducer&lt;String,String&gt; producer=<span class="keyword">new</span> KafkaProducer&lt;String, String&gt;(props);</span><br><span class="line">        <span class="comment">//创建消息</span></span><br><span class="line">        ProducerRecord&lt;String,String&gt; record=<span class="keyword">new</span> ProducerRecord&lt;String, String&gt;(topic,<span class="string">"hello,Kafka!"</span>);</span><br><span class="line">        <span class="comment">//发送消息</span></span><br><span class="line">        producer.send(record);</span><br><span class="line">        <span class="comment">//关闭生产者，释放资源</span></span><br><span class="line">        producer.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/01/25/Kafka实践：二、生产者/">
+            <a class="btn" href="/2020/01/25/Kafka实践：二、生产者/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -677,10 +838,15 @@
 
       
         
-          介绍Kafka的基本组成和常用概念。
+          <p><img src="https://cdn.nlark.com/yuque/0/2019/png/450073/1566543076815-d81db4ad-5e70-4d4e-80ba-0b3b2faa9a01.png#align=left&display=inline&height=1416&name=%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png&originHeight=1416&originWidth=1975&size=195486&status=done&width=1975" alt="未命名文件.png"></p>
+<h1 id="Producer"><a href="#Producer" class="headerlink" title="Producer"></a>Producer</h1><p>生产者，负责创建消息，并将消息发送到Kafka。</p>
+<h1 id="Consumer"><a href="#Consumer" class="headerlink" title="Consumer"></a>Consumer</h1><p>消费者，负责连接到Kafka并接收消息。</p>
+<h1 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h1><p>服务代理节点，可以看作一个Kafka服务器实例，一个或多个Broker组成一个Kafka集群。</p>
+<h2 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h2><p>主题，消息发送和接收的基本单位，对消息归类形成主题，生产者生产消息时需要指定主题，消费者消费时同样需要指定主题。</p>
+<h2 id="Partition"><a href="#Partition" class="headerlink" title="Partition"></a>Partition</h2><p>分区，一个主题有多个分区，一个分区只属于一个主题，同一主题的不同分区包含不同的消息。消息在发送到broker时会根据规则选择分区。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/01/15/Kafka实践：一、基本概念/">
+            <a class="btn" href="/2020/01/15/Kafka实践：一、基本概念/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -766,7 +932,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -777,7 +943,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -788,7 +954,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
