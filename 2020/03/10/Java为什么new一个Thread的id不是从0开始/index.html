@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="姜文杰|个人博客">
 <meta property="og:description" content="一个Main函数到底启动了多少线程？废话不多说，首先贴上代码，摘自《Java并发编程实战》第4章，读到这章的是否发现程序输出结果与书上不符，故引发了这篇文章。 123456789101112public class MultiThread &amp;#123;    public static void main(String[] args) &amp;#123;        //获取Java线程管理MXBea">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-03-10T08:45:15.801Z">
+<meta property="og:updated_time" content="2020-03-15T15:47:04.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java为什么new一个Thread的id不是从0开始">
 <meta name="twitter:description" content="一个Main函数到底启动了多少线程？废话不多说，首先贴上代码，摘自《Java并发编程实战》第4章，读到这章的是否发现程序输出结果与书上不符，故引发了这篇文章。 123456789101112public class MultiThread &amp;#123;    public static void main(String[] args) &amp;#123;        //获取Java线程管理MXBea">
@@ -130,6 +130,16 @@
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f9b16a589bec714ecf0e6e31f9fb806b";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -402,6 +412,7 @@
 </li>
 <li><p><code>[1]main</code> 主线程，用于执行我们编写的java程序的main方法。</p>
 <p>  所以，显而易见的是，cmd启动是没有Monitor Ctrl-Break线程的。</p>
+<a id="more"></a>
 <h1 id="线程的id问题"><a href="#线程的id问题" class="headerlink" title="线程的id问题"></a>线程的id问题</h1><h2 id="线程id的生成规则"><a href="#线程id的生成规则" class="headerlink" title="线程id的生成规则"></a>线程id的生成规则</h2><p>首先，我们来看一下Thread的源码，从中可以看到new Thread时会调用<code>init()</code>方法，而线程id则由<code>nextThreadID()</code>方法实现，从中我们可以发现线程id是自增的。</p>
 </li>
 </ul>
